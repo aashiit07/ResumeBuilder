@@ -7,7 +7,7 @@ import SignInPage from './auth/sign-in'
 import Home from './Home/Home'
 import Dashboard from './dashboard/Dashboard'
 import { ClerkProvider } from '@clerk/clerk-react'
-import ProtectedRoute from './components/ProtectedRoute'
+// import ProtectedRoute from './components/ProtectedRoute'
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
@@ -19,18 +19,19 @@ const router=createBrowserRouter([
     element:<App/>,
     children:[
       {
-        path:'/',
-        element:<Home/>
-      },
-      {
        path:'/dashboard',
        element: (
-        <ProtectedRoute>
-          <Dashboard />
-        </ProtectedRoute>
+        // <ProtectedRoute>
+        //   <Dashboard />
+        // </ProtectedRoute>
+        <Dashboard/>
       )
       }
     ]
+  },
+  {
+    path:'/',
+    element:<Home/>
   },
   {
     path:'/auth/sign-in',
