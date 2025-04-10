@@ -13,14 +13,25 @@ function PersonalDetail({enableNext}) {
 
     const {resumeInfo,setResumeInfo}=useContext(ResumeInfoContext)
 
-    const [formData,setFormData]=useState();
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        jobTitle: '',
+        address: '',
+        phone: '',
+        email: ''
+      });
+      
 
     const[loading,setLoading]=useState(false)
 
-    useEffect(()=>{
-        console.log("---",resumeInfo)
+
+
+     useEffect(()=>{
+      console.log("---",resumeInfo)
 
     },[])
+
 
     const handleInputChange=(e)=>{
         enableNext(false)
@@ -30,13 +41,12 @@ function PersonalDetail({enableNext}) {
             ...formData,
             [name]:value
         })
-
         setResumeInfo({
             ...resumeInfo,
             [name]:value
         })
     }
-
+      
     const onSave=(e)=>{
         e.preventDefault()
         console.log("Form submitted! 🎯"); 
@@ -45,13 +55,19 @@ function PersonalDetail({enableNext}) {
         const data={
             data:formData
         }
+
+        console.log("Updating resume with ID:", params?.ResumeId);
+console.log("Data:", data);
+
         GlobalApi.UpdateResumeDetail(params?.ResumeId,data).then(resp=>{
             console.log(resp);
             enableNext(true)
             setLoading(false)
-            toast("Details updated")
+            toast("Details updated ✅!")
         },(error)=>{
+            console.error("Update failed:", error);
             setLoading(false)
+            toast("Update failed ❌");
         })
     }
   return (

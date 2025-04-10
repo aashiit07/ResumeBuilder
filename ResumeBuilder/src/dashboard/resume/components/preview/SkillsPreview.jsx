@@ -25,7 +25,8 @@ function SkillsPreview({resumeInfo}) {
                     
                     </div>
                 </div>
-        </div>
+                </div>
+      
         ))}
     </div>
     </div>

@@ -1,7 +1,9 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import React, { useEffect, useState } from 'react'
+import React, {useContext, useEffect, useState } from 'react'
 import RichTextEditor from '../RichTextEditor'
+import { ResumeInfoContext } from '@/context/ResumeInfoContext'
+import { LoaderCircle } from 'lucide-react'
 
 const formField={
     title:'',
@@ -14,9 +16,11 @@ const formField={
 }
 
 function Experience() {
-    const[experienceList,setExperienceList]=useState([
-       formField
-    ])
+    const[experienceList,setExperienceList]=useState([formField])
+    const {resumeInfo,setResumeInfo}=useContext(ResumeInfoContext)
+     const[loading,setLoading]=useState(false)
+
+
     const handleChange=(index,event)=>{
         const newEntries=experienceList.slice();
         const {name,value}=event.target;
@@ -26,13 +30,34 @@ function Experience() {
     }
     
     const AddNewExperience=()=>{
-        setExperienceList([...experienceList,formField])
+        setExperienceList([...experienceList,{
+            title:'',
+            companyName:'',
+            city:'',
+            state:'',
+            startDate:'',
+            endDate:'',
+            workSummery:''
+        }])
     }
     const RemoveExperience=()=>{
         setExperienceList(experienceList=>experienceList.slice(0,-1))
     }
+    const handleRichTextEditor=(e,name,index)=>{
+        const newEntries=experienceList.slice();
+        newEntries[index][name]=e.target.value;
+        setExperienceList(newEntries);
+
+    }
+
+
+
 
     useEffect(()=>{
+        setResumeInfo({
+            ...resumeInfo,
+            experience:experienceList
+        })
         console.log(experienceList)
     },[experienceList])
 
@@ -47,7 +72,7 @@ function Experience() {
         <p>Add Your Previous Job Experience</p>
         <div>
             {experienceList.map((item,index)=>(
-                <div>
+                <div key={index}>
                     <div className='grid grid-cols-2 gap-3 border p-3 my-5 rounded-lg'>
                         <div>
                          <label className='text-sm'>Position Title</label>
@@ -80,7 +105,12 @@ function Experience() {
                         </div>
 
                         <div className='col-span-2'>
-                         <RichTextEditor/>
+                         <RichTextEditor
+                         index={index}
+                        onRichTextEditorChange={(event)=>handleRichTextEditor(event,'workSummery',index)}/>
+
+
+
                         </div> 
 
 
@@ -94,9 +124,9 @@ function Experience() {
             <Button variant="outline" onClick={AddNewExperience} className="text-primary">+ Add More Experience</Button>
             <Button variant="outline" onClick={RemoveExperience} className="text-primary">-Remove Experience</Button>
             </div>
-
-        
-            <Button>Save</Button>
+            <Button disabled={loading} onClick={()=>onSave()}>
+            {loading?<LoaderCircle className='animate-spin' />:'Save'}    
+            </Button>
         </div>
 
 
