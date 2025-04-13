@@ -5,12 +5,12 @@ function SkillsPreview({resumeInfo}) {
     <div className='my-6'>
     <h2 className='text-center font-bold text-sm mb-2'
     style={{
-      color:resumeInfo?.themeColor
+      color:resumeInfo?.themeColor ||"#ff6666"
     }}>
-    Education
+    Skill
     </h2>
     <hr style={{
-      borderColor:resumeInfo?.themeColor
+      borderColor:resumeInfo?.themeColor ||"#ff6666"
     }}/>
     <div className='grid grid-cols-2 gap-3 my-4'>
         {resumeInfo?.skills.map((skill,index)=>(
@@ -19,10 +19,10 @@ function SkillsPreview({resumeInfo}) {
                 <div className='h-2 bg-gray-200 w-[120px]'>
                     <div className='h-2'
                     style={{
-                        backgroundColor:resumeInfo?.themeColor,
+                        backgroundColor:resumeInfo?.themeColor ||"#ff6666",
                         width:skill?.rating+'%'
                     }}>
-                    
+
                     </div>
                 </div>
                 </div>

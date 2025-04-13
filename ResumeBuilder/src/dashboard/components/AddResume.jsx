@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input'
 import {v4 as uuidv4} from 'uuid'
 import GlobalApi from './../../../service/GlobalApi'
 import { useUser } from '@clerk/clerk-react'
-import { useNavigate } from 'react-router-dom'
+import { Navigate ,useNavigate } from 'react-router-dom'
   
 function AddResume(){
   const [openDialog,setOpenDialog]=useState(false)
@@ -22,7 +22,7 @@ function AddResume(){
   const[loading,setLoading]=useState(false);
   const navigation=useNavigate()
 
-  const onCreate=()=>{
+  const onCreate=async()=>{
     setLoading(true)
     const uuid=uuidv4();
     const data={
@@ -30,7 +30,8 @@ function AddResume(){
             Title:resumeTitle,
             ResumeId:uuid,
             userEmail:user?.primaryEmailAddress?.emailAddress,
-            userName:user?.fullName
+            userName:user?.fullName,
+            themeColor: "#ff6666"
 
         }
 

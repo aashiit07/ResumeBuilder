@@ -8,29 +8,21 @@ import { LoaderCircle } from 'lucide-react'
 import { toast } from 'sonner'
 
 function PersonalDetail({enableNext}) {
-
+   
     const params=useParams();
 
     const {resumeInfo,setResumeInfo}=useContext(ResumeInfoContext)
 
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        jobTitle: '',
-        address: '',
-        phone: '',
-        email: ''
-      });
-      
-
+    const [formData, setFormData] = useState();
+   
     const[loading,setLoading]=useState(false)
-
+    console.log(resumeInfo?.themeColor)
 
 
      useEffect(()=>{
       console.log("---",resumeInfo)
 
-    },[])
+    },[resumeInfo])
 
 
     const handleInputChange=(e)=>{

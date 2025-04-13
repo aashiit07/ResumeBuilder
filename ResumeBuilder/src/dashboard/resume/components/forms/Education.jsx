@@ -45,8 +45,6 @@ const RemoveEducation=()=>{
     seteducationalList(educationalList=>educationalList.slice(0,-1))
 
 }
-
-
 const onSave=()=>{
     setLoading(true)
     const data={
@@ -63,11 +61,6 @@ const onSave=()=>{
         console.error("❌ Error from Strapi:", error.response?.data?.error);
         toast("Update failed ❌");
      })
-
-
-
-
-
 
 
 }

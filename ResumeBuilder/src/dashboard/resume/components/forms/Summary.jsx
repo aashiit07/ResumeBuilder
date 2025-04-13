@@ -8,8 +8,7 @@ import { Brain, LoaderCircle } from 'lucide-react'
 import { toast } from 'sonner'
 import { AIChatSession } from './../../../../../service/AIModal'
 
-const prompt="Job Title:{jobTitle}, Depends on job title give me summary for my resume within 4-5 lines in JSON format with field experience Level and Summary with experience level for Fresher,Mid-Level,Experienced"
-
+const prompt="Job Title:{jobTitle},  Depends on job title give me list of  summery for 3 experience level, Mid Level and Freasher level in 3 -4 lines in array format, With summery and experience_level Field in JSON Format"
 function Summary({enableNext}) {
     const {resumeInfo,setResumeInfo}=useContext(ResumeInfoContext)
     const [summery,setSummery]=useState();
@@ -30,11 +29,19 @@ function Summary({enableNext}) {
         const PROMPT=prompt.replace('{jobTitle}',resumeInfo?.jobTitle)
         console.log(PROMPT)
         const result=await AIChatSession.sendMessage(PROMPT)
-        console.log(JSON.parse(result.response.text()))
-        setAiGeneratedSummaryList(JSON.parse(result.response.text()));
+        try {
+            const rawText = await result.response.text();
+            const parsed = JSON.parse(rawText); // 👈 This is where it usually fails if AI returns plain text
+            console.log("AI parsed result:", parsed);
+            setAiGeneratedSummaryList(parsed);
+          } catch (error) {
+            toast("⚠️ Failed to parse AI response");
+            console.error("Parsing error:", error);
+          }
         setLoading(false)
      }
-
+    //  console.log(JSON.parse(result.response.text()))
+    //  setAiGeneratedSummaryList(JSON.parse(result.response.text()));
 
      const onSave=(e)=>{
         e.preventDefault()
@@ -50,7 +57,7 @@ function Summary({enableNext}) {
             console.log(resp);
             enableNext(true)
             setLoading(false)
-            toast("Details updated")
+            toast("Details updated ✅!")
         },(error)=>{
             setLoading(false)
         })
@@ -67,9 +74,10 @@ function Summary({enableNext}) {
             <label>Add Summary</label>
             <Button variant="outline" onClick={()=>GenerateSummeryFromAI()}
              type="button" size="sm"className="border-primary text-primary flex gap-2">
-             <Brain className='h-4 w-4'/>   Generate from AI</Button>
+             <Brain className='h-4 w-4'/> Generate from AI</Button>
         </div>
-        <Textarea className="mt-5" required
+        <Textarea className="mt-5" required value={summery}
+            // defaultValue={summery?summery:resumeInfo?.summery}
         onChange={(e)=>setSummery(e.target.value)}
         />
         <div className='mt-2 flex justify-end'>
@@ -81,9 +89,10 @@ function Summary({enableNext}) {
     </form>
     </div>
 
-    {aiGeneratedSummaryList&& <div>
+    {aiGeneratedSummaryList&& Array.isArray(aiGeneratedSummaryList) && aiGeneratedSummaryList.length > 0 && (
+    <div className='my-5'>
         <h2 className='font-bold text-lg'>Suggestions</h2>
-        {Array.isArray(aiGeneratedSummaryList) &&aiGeneratedSummaryList?.map((item,index)=>(
+        {aiGeneratedSummaryList.map((item, index) => (
                 <div key={index} 
                 onClick={()=>setSummery(item?.summary)}
                 className='p-5 shadow-lg my-4 rounded-lg cursor-pointer'>
@@ -91,7 +100,7 @@ function Summary({enableNext}) {
                     <p>{item?.summary}</p>
                 </div>
             ))}
-     </div>}
+     </div>)}
 
 
 

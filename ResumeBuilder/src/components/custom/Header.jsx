@@ -7,7 +7,9 @@ function Header(){
     const {user,isSignedIn}=useUser();
     return(
         <div className='p-3 px-5 flex justify-between shadow-md'>
-           <img src='/logo.svg' width={40} height={40}/>
+            <Link to={'/dashboard'}>
+           <img src='/logo2.jpeg' className="cursor-pointer" width={40} height={40}/>
+           </Link>
             {isSignedIn ?
                 <div className='flex gap-2 items-center'>
                     <Link to={'/dashboard'}>
