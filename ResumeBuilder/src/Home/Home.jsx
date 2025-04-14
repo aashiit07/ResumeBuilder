@@ -137,8 +137,8 @@ function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="text-center py-6 text-gray-400 text-sm border-t">
-        Made with ❤️ by Aashi · AI Resume Builder 2025
+      <footer className="text-center py-6 text-gray-600 text-sm border-t">
+      © 2025 Resume Builder powered by AI — Built for future achievers -- CareerCrafts
       </footer>
     </div>
   );
