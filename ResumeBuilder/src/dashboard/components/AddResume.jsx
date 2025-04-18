@@ -65,7 +65,7 @@ function AddResume(){
                     <DialogHeader>
                         <DialogTitle>Create New Resume</DialogTitle>
                         <DialogDescription>
-                            <p>Add Title for your new Resume</p>
+                            Add Title for your new Resume
                            <Input className='my-2' placeholder="Ex.Full Stack Resume"
                            onChange={(e)=>setResumeTitle(e.target.value)}
                             />

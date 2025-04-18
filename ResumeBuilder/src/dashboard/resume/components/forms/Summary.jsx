@@ -28,12 +28,12 @@ function Summary({enableNext}) {
         setLoading(true)
         const PROMPT=prompt.replace('{jobTitle}',resumeInfo?.jobTitle)
         console.log(PROMPT)
-        const result=await AIChatSession.sendMessage(PROMPT)
+         const result=await AIChatSession.sendMessage(PROMPT)
         try {
             const rawText = await result.response.text();
             const parsed = JSON.parse(rawText); // 👈 This is where it usually fails if AI returns plain text
             console.log("AI parsed result:", parsed);
-            setAiGeneratedSummaryList(parsed);
+            setAiGeneratedSummaryList(parsed.summaries);
           } catch (error) {
             toast("⚠️ Failed to parse AI response");
             console.error("Parsing error:", error);
@@ -77,7 +77,7 @@ function Summary({enableNext}) {
              <Brain className='h-4 w-4'/> Generate from AI</Button>
         </div>
         <Textarea className="mt-5" required value={summery}
-            // defaultValue={summery?summery:resumeInfo?.summery}
+            defaultValue={summery?summery:resumeInfo?.summery}
         onChange={(e)=>setSummery(e.target.value)}
         />
         <div className='mt-2 flex justify-end'>
@@ -101,10 +101,6 @@ function Summary({enableNext}) {
                 </div>
             ))}
      </div>)}
-
-
-
-
     </div>
   )
 }
