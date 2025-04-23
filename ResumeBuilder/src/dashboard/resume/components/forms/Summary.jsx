@@ -8,7 +8,29 @@ import { Brain, LoaderCircle } from 'lucide-react'
 import { toast } from 'sonner'
 import { AIChatSession } from './../../../../../service/AIModal'
 
-const prompt="Job Title:{jobTitle},  Depends on job title give me list of  summery for 3 experience level, Mid Level and Freasher level in 3 -4 lines in array format, With summery and experience_level Field in JSON Format"
+// const prompt="Job Title:{jobTitle},  Depends on job title give me list of  summery for 3 experience level, Mid Level and Freasher level in 3 -4 lines in array format, With summery and experience_level Field in JSON Format"
+
+const prompt = `
+Job Title: {jobTitle}
+
+Please ONLY respond with a JSON array of 3 objects, each having "experience_level" and "summary" fields.
+The summaries should be 3-4 lines each.
+Do NOT include any extra text outside the JSON.
+Example format:
+[
+  { "experience_level": "Fresher", "summary": "..." },
+  { "experience_level": "Mid Level", "summary": "..." },
+  { "experience_level": "Senior", "summary": "..." }
+]
+`;
+
+
+
+
+
+
+
+
 function Summary({enableNext}) {
     const {resumeInfo,setResumeInfo}=useContext(ResumeInfoContext)
     const [summery,setSummery]=useState();
@@ -24,24 +46,64 @@ function Summary({enableNext}) {
        })
      },[summery])
      
-     const GenerateSummeryFromAI=async()=>{
-        setLoading(true)
-        const PROMPT=prompt.replace('{jobTitle}',resumeInfo?.jobTitle)
-        console.log(PROMPT)
-         const result=await AIChatSession.sendMessage(PROMPT)
+    //  const GenerateSummeryFromAI=async()=>{
+    //     setLoading(true)
+    //     setAiGeneratedSummaryList([]); 
+    //     const PROMPT=prompt.replace('{jobTitle}',resumeInfo?.jobTitle)
+    //     console.log(PROMPT)
+    //      const result=await AIChatSession.sendMessage(PROMPT)
+    //     try {
+    //         const rawText = await result.response.text();
+    //         const parsed = JSON.parse(rawText); // 👈 This is where it usually fails if AI returns plain text
+    //         console.log("AI parsed result:", parsed);
+    //         setAiGeneratedSummaryList(parsed.summaries);
+    //       } catch (error) {
+    //         toast("⚠️ Failed to parse AI response");
+    //         console.error("Parsing error:", error);
+    //       }
+    //     setLoading(false)
+    //  }
+
+
+    const GenerateSummeryFromAI = async () => {
+        setLoading(true);
+        setAiGeneratedSummaryList([]);  // Clear previous suggestions
+      
+        const PROMPT = prompt.replace('{jobTitle}', resumeInfo?.jobTitle);
+        console.log("Sending prompt to AI:", PROMPT);
+      
         try {
-            const rawText = await result.response.text();
-            const parsed = JSON.parse(rawText); // 👈 This is where it usually fails if AI returns plain text
-            console.log("AI parsed result:", parsed);
-            setAiGeneratedSummaryList(parsed.summaries);
-          } catch (error) {
-            toast("⚠️ Failed to parse AI response");
-            console.error("Parsing error:", error);
+          const result = await AIChatSession.sendMessage(PROMPT);
+          const rawText = await result.response.text();
+          console.log("Raw AI response:", rawText);
+      
+          // Try parse JSON safely
+          let parsed;
+          try {
+            parsed = JSON.parse(rawText);
+            if (!Array.isArray(parsed)) {
+              throw new Error("Response JSON is not an array");
+            }
+          } catch (parseError) {
+            console.warn("JSON parse error:", parseError);
+            toast("⚠️ AI returned invalid data. Try again.");
+            setLoading(false);
+            return;
           }
-        setLoading(false)
-     }
-    //  console.log(JSON.parse(result.response.text()))
-    //  setAiGeneratedSummaryList(JSON.parse(result.response.text()));
+      
+          setAiGeneratedSummaryList(parsed);
+        } catch (error) {
+          console.error("AI call failed:", error);
+          toast("⚠️ AI request failed. Check your connection or try later.");
+        }
+      
+        setLoading(false);
+      };
+      
+   
+
+
+
 
      const onSave=(e)=>{
         e.preventDefault()
