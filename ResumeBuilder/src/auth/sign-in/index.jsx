@@ -48,7 +48,7 @@ function SignInPage() {
         <h1 className="text-3xl font-extrabold text-purple-700 mb-4">Welcome Back!</h1>
         <p className="text-gray-600 mb-6">Please sign in to access your dashboard and resumes.</p>
         <SignedOut>
-          <SignInButton>
+          <SignInButton  redirectUrl="/dashboard">
             <button className="w-full py-2 px-4 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg transition duration-300">
               Sign In
             </button>
