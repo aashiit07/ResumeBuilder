@@ -16,6 +16,7 @@ const[educationalList,seteducationalList]=useState([
         universityName:'',
         degree:'',
         major:'',
+        cgpa:'',
         startDate:'',
         endDate:'',
         description:''
@@ -36,6 +37,7 @@ const AddNewEducation=()=>{
     universityName:'',
     degree:'',
     major:'',
+    cgpa:'',
     startDate:'',
     endDate:'',
     description:''
@@ -45,34 +47,84 @@ const RemoveEducation=()=>{
     seteducationalList(educationalList=>educationalList.slice(0,-1))
 
 }
-const onSave=()=>{
-    setLoading(true)
-    const data={
-        data:{
-            education:educationalList.map(({ id, ...rest }) => rest)
-        }
+// const onSave=()=>{
+//     for (let i = 0; i < educationalList.length; i++) {
+//         const { startDate, endDate } = educationalList[i];
+//         if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
+//           toast.error(`End date should be after start date for entry ${i + 1}`);
+//           return;
+//         }
+//       }
+
+//     setLoading(true)
+//     const data={
+//         data:{
+//             education:educationalList.map(({ id, ...rest }) => rest)
+//         }
+//     }
+//      GlobalApi.UpdateResumeDetail(params.ResumeId,data).then(resp=>{
+//         console.log(resp)
+//         setLoading(false)
+//         toast("Details updated! ✅")
+//      },(error)=>{
+//         setLoading(false)
+//         console.error("❌ Error from Strapi:", error.response?.data?.error);
+//         toast("Update failed ❌");
+//      })
+// }
+
+
+const onSave = () => {
+    // Validation: Check if any startDate > endDate
+    for (let i = 0; i < educationalList.length; i++) {
+      const { startDate, endDate } = educationalList[i];
+      if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
+        toast.error(`End date should be after start date for entry ${i + 1}`);
+        return;
+      }
     }
-     GlobalApi.UpdateResumeDetail(params.ResumeId,data).then(resp=>{
-        console.log(resp)
-        setLoading(false)
-        toast("Details updated! ✅")
-     },(error)=>{
-        setLoading(false)
+  
+    setLoading(true);
+    const data = {
+      data: {
+        education: educationalList.map(({ id, ...rest }) => rest),
+      },
+    };
+  
+    GlobalApi.UpdateResumeDetail(params.ResumeId, data).then(
+      (resp) => {
+        console.log(resp);
+        setLoading(false);
+        toast("Details updated! ✅");
+      },
+      (error) => {
+        setLoading(false);
         console.error("❌ Error from Strapi:", error.response?.data?.error);
         toast("Update failed ❌");
-     })
+      }
+    );
+  };
+  
 
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
 useEffect(()=>{
     setResumeInfo({
       ...resumeInfo,
       education:educationalList
     })
   },[educationalList])
-  
-
-
 
 
   return (
@@ -85,7 +137,7 @@ useEffect(()=>{
                 <div>
                  <div className='grid grid-cols-2 gap-3 border p-3 my-5 rounded-lg'>
                     <div className='col-span-2'>
-                        <label>University Name</label>
+                        <label>University Name/School Name</label>
                         <Input name="universityName" defaultValue={item?.universityName}
                          onChange={(e)=>handleChange(e,index)}/>
                     </div>
@@ -102,15 +154,25 @@ useEffect(()=>{
                         onChange={(e)=>handleChange(e,index)}/>
                     </div>
 
+                        <div>
+                            <label>CGPA / Marks</label>
+                            <Input
+                                name="cgpa"
+                                defaultValue={item?.cgpaOrMarks}
+                                onChange={(e) => handleChange(e, index)}
+                                placeholder="e.g. 8.5 or 85%"
+                            />
+                        </div>
+
                     <div>
-                        <label>Start Date</label>
-                        <Input type="date" name="startDate" defaultValue={item?.startDate}
+                        <label>Start Month</label>
+                        <Input type="month" name="startDate" defaultValue={item?.startDate}
                          onChange={(e)=>handleChange(e,index)}/>
                     </div>
 
                     <div>
-                        <label>End Date</label>
-                        <Input type="date" name="endDate" defaultValue={item?.endDate}
+                        <label>End Month</label>
+                        <Input type="month" name="endDate" defaultValue={item?.endDate}
                          onChange={(e)=>handleChange(e,index)}/>
                     </div>
 
