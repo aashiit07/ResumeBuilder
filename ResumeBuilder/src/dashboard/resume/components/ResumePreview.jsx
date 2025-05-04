@@ -12,9 +12,9 @@ function ResumePreview(){
     return(
         <div className='shadow-lg h-full px-10 py-5 border'>
            <PersonalDetailPreview resumeInfo={resumeInfo}/>
+           {resumeInfo?.education?.length>0&&   <EducationalPreview resumeInfo={resumeInfo}/>}
            <SummaryPreview resumeInfo={resumeInfo}/>
            {resumeInfo?.experience?.length>0&&  <ExperiencePreview resumeInfo={resumeInfo}/>}
-           {resumeInfo?.education?.length>0&&   <EducationalPreview resumeInfo={resumeInfo}/>}
            {resumeInfo?.skills?.length>0&&     <SkillsPreview resumeInfo={resumeInfo}/>}
         </div>
     )
