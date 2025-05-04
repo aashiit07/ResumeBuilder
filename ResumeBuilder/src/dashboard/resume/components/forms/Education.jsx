@@ -83,20 +83,14 @@ const onSave = () => {
         return;
       }
     }
-    const educationData = educationalList.map(({ id, cgpa, ...rest }) => ({
-      ...rest,
-      cgpa: cgpa ? parseInt(cgpa,10) : null 
-    }));
   
     setLoading(true);
     const data = {
       data: {
-        // education: educationalList.map(({ id, ...rest }) => rest),
-        education:educationData
+        education: educationalList.map(({ id, ...rest }) => rest),
       },
     };
-    console.log("Sending data to Strapi:", data);
-
+  
     GlobalApi.UpdateResumeDetail(params.ResumeId, data).then(
       (resp) => {
         console.log(resp);
@@ -105,19 +99,33 @@ const onSave = () => {
       },
       (error) => {
         setLoading(false);
-        const errorMessage = error.response?.data?.message || "Update failed ❌";
-        console.error("❌ Error from Strapi:", errorMessage);
-        toast(errorMessage);
+        console.error("❌ Error from Strapi:", error.response?.data?.error);
+        toast("Update failed ❌");
       }
     );
-  }    
+  };
   
-  useEffect(() => {
-    if (Array.isArray(resumeInfo?.education)) {
-      seteducationalList(resumeInfo.education);
-    }
-  }, [resumeInfo]);
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+useEffect(()=>{
+    setResumeInfo({
+      ...resumeInfo,
+      education:educationalList
+    })
+  },[educationalList])
+
 
   return (
 
