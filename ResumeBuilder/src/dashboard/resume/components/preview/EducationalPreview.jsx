@@ -1,29 +1,39 @@
 import React from 'react'
 
+<<<<<<< HEAD
 const formatDate = (input) => {
   if (!input) return ''; // Safety check for undefined or null input
   const [year, month] = input.split('-');  // Split the string into year and month
   const date = new Date(year, month - 1);  // Create a new date using the year and month
   return date.toLocaleString('default', { month: 'short', year: 'numeric' }).toUpperCase();  // Return formatted month/year
+=======
+
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return isNaN(date) ? '' : date.getFullYear();
+>>>>>>> 1fddde7ca0b2a7a421038921fb57bec99ed5a129
 };
+
 
 function EducationalPreview({ resumeInfo }) {
   return (
-    <div className='my-6'>
-      <h2
-        className='text-center font-bold text-sm mb-2'
-        style={{
-          color: resumeInfo?.themeColor || "#ff6666"
-        }}
-      >
-        Education
+    <div className='my-4'>
+      <h2 className=' font-bold text-sm '
+      style={{
+        color:resumeInfo?.themeColor ||"#ff6666",
+        letterSpacing: "0.5px"
+      }}>
+        EDUCATION
       </h2>
-      <hr style={{
-        borderColor: resumeInfo?.themeColor || "#ff6666"
-      }} />
+      <hr
+        className='border-[1px] my-1'
+        style={{
+          borderColor: resumeInfo?.themeColor || "#ff6666"
+        }}
+      />
 
       {resumeInfo?.education.map((education, index) => (
-        <div key={index} className='my-5'>
+        <div key={index} className='my-2'>
           <h2
             className='text-sm font-bold'
             style={{

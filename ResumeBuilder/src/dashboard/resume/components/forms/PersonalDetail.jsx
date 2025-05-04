@@ -94,7 +94,7 @@ console.log("Data:", data);
 
                 <div className='col-span-2'>
                     <label className='text-sm'>
-                       Address
+                       City, State
                     </label>
                    <Input name="address" required  defaultValue={resumeInfo?.address}
                     onChange={handleInputChange}/>

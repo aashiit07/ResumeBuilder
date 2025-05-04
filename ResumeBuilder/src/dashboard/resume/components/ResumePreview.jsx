@@ -11,15 +11,11 @@ function ResumePreview(){
 
     const{resumeInfo,setResumeInfo}=useContext(ResumeInfoContext)
     return(
-        <div className='shadow-lg h-full p-14 border-t-[20px] '
-        style={{
-            borderColor:resumeInfo?.themeColor||"#ff6666"
-        }}>
+        <div className='shadow-lg h-full px-10 py-5 border'>
            <PersonalDetailPreview resumeInfo={resumeInfo}/>
+           {resumeInfo?.education?.length>0&&   <EducationalPreview resumeInfo={resumeInfo}/>}
            <SummaryPreview resumeInfo={resumeInfo}/>
            {resumeInfo?.experience?.length>0&&  <ExperiencePreview resumeInfo={resumeInfo}/>}
-           {resumeInfo?.education?.length>0&&   <EducationalPreview resumeInfo={resumeInfo}/>}
-           {resumeInfo?.certificates?.length > 0 && <CertificatePreview resumeInfo={resumeInfo} />}
            {resumeInfo?.skills?.length>0&&     <SkillsPreview resumeInfo={resumeInfo}/>}
         </div>
     )

@@ -38,11 +38,11 @@ function FormSection(){
             {activeFormIndex==1?
             <PersonalDetail enableNext={(v)=>setEnableNext(v)}/>
             :activeFormIndex==2?
-            <Summary enableNext={(v)=>setEnableNext(v)}/>
-            :activeFormIndex==3?
-            <Experience />
-            :activeFormIndex==4?
             <Education />
+            :activeFormIndex==3?
+            <Summary enableNext={(v)=>setEnableNext(v)}/>
+            :activeFormIndex==4?
+            <Experience />
             :activeFormIndex==5?
             <Certificate />
             :activeFormIndex==6?
