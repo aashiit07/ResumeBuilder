@@ -1,42 +1,72 @@
-import React from 'react'
+import React from "react";
 
-function ExperiencePreview({resumeInfo}) {
+function ExperiencePreview({ resumeInfo }) {
   return (
-    <div className='my-6'>
-      <h2 className='text-center font-bold text-sm mb-2'
-      style={{
-        color:resumeInfo?.themeColor ||"#ff6666"
-      }}>
-        Professional Experience
+    <div className="my-3">
+      <h2
+        className=" font-bold text-sm mb-1"
+        style={{
+          color: resumeInfo?.themeColor || "#ff6666",
+          letterSpacing: "0.5px",
+        }}
+      >
+        EXPERIENCE
       </h2>
-      <hr style={{
-        borderColor:resumeInfo?.themeColor ||"#ff6666"
-      }}/>
+      <hr
+        className="border-[1px] my-1"
+        style={{
+          borderColor: resumeInfo?.themeColor || "#ff6666",
+        }}
+      />
 
-    {resumeInfo?.experience?.map((experience,index)=>(
-      <div key={index} className='my-5'>
-        <h2 className='text-sm font-bold'
-         style={{
-          color:resumeInfo?.themeColor ||"#ff6666"
-      }}
-      
-        >{experience?.title}</h2>
-        <h2 className='text-xs flex justify-between'>{experience?.companyName},
-          {experience?.city},
-          {experience?.state}
-          <span>
-            {experience?.startDate} TO {experience?.currentlyWorking?'Present':experience.endDate}
-          </span>
-          </h2>
+      {resumeInfo?.experience?.map((experience, index) => (
+        <div key={index} className="my-2">
+          <div className="flex justify-between">
+            <h2
+              className="text-sm font-bold"
+              style={{
+                color: resumeInfo?.themeColor || "#ff6666",
+                letterSpacing: "0.5px",
+              }}
+            >
+              {experience?.companyName}
+            </h2>
+            <h2 className="text-xs text-gray-800 italic">
+              {experience?.city}, {experience?.state}
+            </h2>
+          </div>
+
+          <div className="flex justify-between">
+            <h2 className="text-xs flex justify-between text-gray-500 italic">
+              {experience?.title}{" "}
+            </h2>
+            <h2 className="text-xs flex justify-between text-gray-500">
+              <span>
+                {new Date(experience?.startDate).toLocaleString("default", {
+                  month: "long",
+                  year: "numeric",
+                })}{" "}
+                -{" "}
+                {experience?.currentlyWorking
+                  ? "Present"
+                  : new Date(experience?.endDate).toLocaleString("default", {
+                      month: "long",
+                      year: "numeric",
+                    })}
+              </span>
+            </h2>
+          </div>
           {/* <p className='text-xs my-2'>
             {experience.workSummery}
           </p> */}
-          <div className='text-xs my-2 ' dangerouslySetInnerHTML={{__html:experience?.workSummery}}>
-            </div>
+          <div
+            className="text-xs"
+            dangerouslySetInnerHTML={{ __html: experience?.workSummery }}
+          ></div>
         </div>
-    ))}
+      ))}
     </div>
-  )
+  );
 }
 
-export default ExperiencePreview
+export default ExperiencePreview;
