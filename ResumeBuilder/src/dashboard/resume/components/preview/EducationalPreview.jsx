@@ -1,17 +1,9 @@
 import React from 'react'
 
-<<<<<<< HEAD
-const formatDate = (input) => {
-  if (!input) return ''; // Safety check for undefined or null input
-  const [year, month] = input.split('-');  // Split the string into year and month
-  const date = new Date(year, month - 1);  // Create a new date using the year and month
-  return date.toLocaleString('default', { month: 'short', year: 'numeric' }).toUpperCase();  // Return formatted month/year
-=======
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   return isNaN(date) ? '' : date.getFullYear();
->>>>>>> 1fddde7ca0b2a7a421038921fb57bec99ed5a129
 };
 
 
