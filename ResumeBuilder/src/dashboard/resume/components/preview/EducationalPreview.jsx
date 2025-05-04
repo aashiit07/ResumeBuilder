@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 const formatDate = (input) => {
   if (!input) return ''; // Safety check for undefined or null input
   const [year, month] = input.split('-');  // Split the string into year and month

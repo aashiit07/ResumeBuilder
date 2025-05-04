@@ -5,6 +5,7 @@ import SummaryPreview from './preview/SummaryPreview'
 import ExperiencePreview from './preview/ExperiencePreview'
 import EducationalPreview from './preview/EducationalPreview'
 import SkillsPreview from './preview/SkillsPreview'
+import CertificatePreview from './preview/CertificatePreview'
 function ResumePreview(){
 
 
@@ -18,6 +19,7 @@ function ResumePreview(){
            <SummaryPreview resumeInfo={resumeInfo}/>
            {resumeInfo?.experience?.length>0&&  <ExperiencePreview resumeInfo={resumeInfo}/>}
            {resumeInfo?.education?.length>0&&   <EducationalPreview resumeInfo={resumeInfo}/>}
+           {resumeInfo?.certificates?.length > 0 && <CertificatePreview resumeInfo={resumeInfo} />}
            {resumeInfo?.skills?.length>0&&     <SkillsPreview resumeInfo={resumeInfo}/>}
         </div>
     )
