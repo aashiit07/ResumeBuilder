@@ -128,7 +128,7 @@ console.log("Data:", data);
                     <label className='text-sm'>
                    Other URL 
                     </label>
-                   <Input name="link" required  defaultValue={resumeInfo?.link2}
+                   <Input name="link2" required  defaultValue={resumeInfo?.link2}
                    onChange={handleInputChange}/>
                 </div>
 
