@@ -41,26 +41,29 @@ function ExperiencePreview({ resumeInfo }) {
               {experience?.title}{" "}
             </h2>
             <h2 className="text-xs flex justify-between text-gray-500">
-              <span>
-                {new Date(experience?.startDate).toLocaleString("default", {
-                  month: "long",
-                  year: "numeric",
-                })}{" "}
-                -{" "}
-                {experience?.currentlyWorking
-                  ? "Present"
-                  : new Date(experience?.endDate).toLocaleString("default", {
-                      month: "long",
-                      year: "numeric",
-                    })}
-              </span>
-            </h2>
+  <span>
+    {experience?.startDate
+      ? new Date(experience.startDate).toLocaleString("default", {
+          month: "long",
+          year: "numeric",
+        })
+      : "Start Date Unknown"}{" "}
+    -{" "}
+    {experience?.currentlyWorking || !experience?.endDate
+      ? "Present"
+      : new Date(experience.endDate).toLocaleString("default", {
+          month: "long",
+          year: "numeric",
+        })}
+  </span>
+</h2>
+
           </div>
           {/* <p className='text-xs my-2'>
             {experience.workSummery}
           </p> */}
           <div
-            className="text-xs"
+            className="text-xs pt-2"
             dangerouslySetInnerHTML={{ __html: experience?.workSummery }}
           ></div>
         </div>

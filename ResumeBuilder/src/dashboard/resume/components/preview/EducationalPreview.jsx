@@ -35,7 +35,13 @@ function EducationalPreview({ resumeInfo }) {
             {education.universityName}
           </h2>
           <h2 className='text-xs flex justify-between'>
-            {education?.degree} in {education?.major}
+            <div className='flex gap-1'>
+            <span>{education?.degree}</span><span style={{fontStyle : 'italic'}}>{education?.major}</span>,
+            {education?.cgpa && (
+            <p className='text-xs font-semibold'>
+              {education?.cgpa}
+            </p>
+          )}</div>
             <span>
               {/* Format and display start date and end date */}
               {formatDate(education.startDate)} - {education.endDate ? formatDate(education.endDate) : 'PRESENT'}
@@ -44,11 +50,7 @@ function EducationalPreview({ resumeInfo }) {
           {/* <p className='text-xs my-2'>
             {education?.description}
           </p> */}
-          {education?.cgpa && (
-            <p className='text-xs font-semibold'>
-              CGPA / Marks: {education?.cgpa}
-            </p>
-          )}
+          
 
         </div>
       ))}
