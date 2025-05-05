@@ -44,9 +44,9 @@ function FormSection(){
             :activeFormIndex==4?
             <Experience />
             :activeFormIndex==5?
-            <Certificate />
-            :activeFormIndex==6?
             <Skills />
+            :activeFormIndex==6?
+            <Certificate />
             :activeFormIndex==7?
             <Navigate to= {'/my-resume/'+ResumeId+"/view"}/>
 

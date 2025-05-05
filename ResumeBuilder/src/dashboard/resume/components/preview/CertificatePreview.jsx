@@ -8,7 +8,7 @@ function CertificatePreview() {
   return (
     <div className='my-6'>
       <h2 className='text-center font-bold text-sm mb-2' style={{ color: themeColor }}>
-        Certificates
+       CERTIFICATES
       </h2>
       <hr style={{ borderColor: themeColor }} />
 
