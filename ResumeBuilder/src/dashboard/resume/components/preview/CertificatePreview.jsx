@@ -40,7 +40,8 @@ function CertificatePreview() {
               href={certificate.certificateURL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-blue-600"
+              className="text-sm "
+              style={{color:resumeInfo?.themeColor||"#ff6666"}}
             >
               {certificate?.certificateName}
             </a>
