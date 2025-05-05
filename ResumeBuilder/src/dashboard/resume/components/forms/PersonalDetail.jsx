@@ -115,6 +115,26 @@ console.log("Data:", data);
                    <Input name="email" required  defaultValue={resumeInfo?.email}
                    onChange={handleInputChange}/>
                 </div>
+
+                <div>
+                    <label className='text-sm'>
+                    LinkedIn URL 
+                    </label>
+                   <Input name="link" required  defaultValue={resumeInfo?.link}
+                   onChange={handleInputChange}/>
+                </div>
+                
+                <div>
+                    <label className='text-sm'>
+                   Other URL 
+                    </label>
+                   <Input name="link" required  defaultValue={resumeInfo?.link2}
+                   onChange={handleInputChange}/>
+                </div>
+
+
+
+
             </div>
             <div className='mt-3 flex justify-end'>
                 <Button type="submit"

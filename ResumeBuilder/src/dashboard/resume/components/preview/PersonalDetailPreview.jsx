@@ -42,29 +42,34 @@ function PersonalDetailPreview({ resumeInfo }) {
       >
         {resumeInfo?.address}
       </h2>
+      <h2>
+          {resumeInfo?.link2}
+        </h2>
 
-      <div className="flex justify-between items-center mt-1 mb-2">
-        <h2
-          className="font-normal text-xs flex items-center cursor-pointer gap-1"
-          style={{
-            color: resumeInfo?.themeColor || "#ff6666",
-          }}
-        >
-          <FaPhoneAlt className="text-[10px]" />
-          {resumeInfo?.phone}
-        </h2>
-        <h2
-          className="font-normal text-xs flex items-center gap-1 cursor-pointer"
-          style={{
-            color: resumeInfo?.themeColor || "#ff6666",
-          }}
-          onClick={handleEmailCopy}
-          title="Click to copy email"
-        >
-          <FaEnvelope className="text-[10px]" />
-          {resumeInfo?.email}
-        </h2>
-      </div>
+        <div className="flex justify-between items-center mt-1 mb-2 flex-wrap gap-2">
+  <h2 className="font-normal text-xs flex items-center gap-1" style={{ color: resumeInfo?.themeColor || "#ff6666" }}>
+    <FaPhoneAlt className="text-[10px]" />
+    {resumeInfo?.phone}
+  </h2>
+  
+  <h2 className="font-normal text-xs" style={{ color: resumeInfo?.themeColor || "#ff6666" }}>
+    {resumeInfo?.link}
+  </h2>
+
+  <h2 className="font-normal text-xs" style={{ color: resumeInfo?.themeColor || "#ff6666" }}>
+    {resumeInfo?.link2}
+  </h2>
+
+  <h2
+    className="font-normal text-xs flex items-center gap-1 cursor-pointer"
+    style={{ color: resumeInfo?.themeColor || "#ff6666" }}
+    onClick={handleEmailCopy}
+    title="Click to copy email"
+  >
+    <FaEnvelope className="text-[10px]" />
+    {resumeInfo?.email}
+  </h2>
+</div>
     </div>
   );
 }
