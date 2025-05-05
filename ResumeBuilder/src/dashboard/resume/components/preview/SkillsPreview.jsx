@@ -2,14 +2,18 @@ import React from 'react'
 
 function SkillsPreview({resumeInfo}) {
   return (
-    <div className='my-6'>
-    <h2 className='text-center font-bold text-sm mb-2'
-    style={{
-      color:resumeInfo?.themeColor ||"#ff6666"
-    }}>
-    Skill
+    <div className=''>
+    <h2
+        className=" font-bold text-sm mb-1"
+        style={{
+          color: resumeInfo?.themeColor || "#ff6666",
+          letterSpacing: "0.5px",
+        }}
+      >
+    SKILLS
     </h2>
-    <hr style={{
+    <hr className="border-[1px] my-1"
+    style={{
       borderColor:resumeInfo?.themeColor ||"#ff6666"
     }}/>
     <div className='grid grid-cols-2 gap-3 my-4'>
