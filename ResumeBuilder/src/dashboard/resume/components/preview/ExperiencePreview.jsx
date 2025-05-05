@@ -2,7 +2,7 @@ import React from "react";
 
 function ExperiencePreview({ resumeInfo }) {
   return (
-    <div className="my-3">
+    <div className="mt-3">
       <h2
         className=" font-bold text-sm mb-1"
         style={{
@@ -20,7 +20,7 @@ function ExperiencePreview({ resumeInfo }) {
       />
 
       {resumeInfo?.experience?.map((experience, index) => (
-        <div key={index} className="my-2">
+        <div key={index} className="mt-2">
           <div className="flex justify-between">
             <h2
               className="text-sm font-bold"
