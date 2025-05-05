@@ -41,9 +41,15 @@ function EducationalPreview({ resumeInfo }) {
               {formatDate(education.startDate)} - {education.endDate ? formatDate(education.endDate) : 'PRESENT'}
             </span>
           </h2>
-          <p className='text-xs my-2'>
+          {/* <p className='text-xs my-2'>
             {education?.description}
-          </p>
+          </p> */}
+          {education?.cgpa && (
+            <p className='text-xs font-semibold'>
+              CGPA / Marks: {education?.cgpa}
+            </p>
+          )}
+
         </div>
       ))}
     </div>

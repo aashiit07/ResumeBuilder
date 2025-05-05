@@ -83,20 +83,14 @@ const onSave = () => {
         return;
       }
     }
-    const educationData = educationalList.map(({ id, cgpa, ...rest }) => ({
-      ...rest,
-      cgpa: cgpa ? parseInt(cgpa,10) : null 
-    }));
   
     setLoading(true);
     const data = {
       data: {
-        // education: educationalList.map(({ id, ...rest }) => rest),
-        education:educationData
+        education: educationalList.map(({ id, ...rest }) => rest),
       },
     };
-    console.log("Sending data to Strapi:", data);
-
+  
     GlobalApi.UpdateResumeDetail(params.ResumeId, data).then(
       (resp) => {
         console.log(resp);
@@ -105,19 +99,19 @@ const onSave = () => {
       },
       (error) => {
         setLoading(false);
-        const errorMessage = error.response?.data?.message || "Update failed ❌";
-        console.error("❌ Error from Strapi:", errorMessage);
-        toast(errorMessage);
+        console.error("❌ Error from Strapi:", error.response?.data?.error);
+        toast("Update failed ❌");
       }
     );
-  }    
-  
-  useEffect(() => {
-    if (Array.isArray(resumeInfo?.education)) {
-      seteducationalList(resumeInfo.education);
-    }
-  }, [resumeInfo]);
-  
+  };
+
+useEffect(()=>{
+    setResumeInfo({
+      ...resumeInfo,
+      education:educationalList
+    })
+  },[educationalList])
+
 
   return (
 
@@ -150,7 +144,7 @@ const onSave = () => {
                             <label>CGPA / Marks</label>
                             <Input
                                 name="cgpa"
-                                defaultValue={item?.cgpaOrMarks}
+                                defaultValue={item?.cgpa}
                                 onChange={(e) => handleChange(e, index)}
                                 placeholder="e.g. 8.5 or 85%"
                             />
@@ -168,11 +162,11 @@ const onSave = () => {
                          onChange={(e)=>handleChange(e,index)}/>
                     </div>
 
-                    <div className='col-span-2'>
+                    {/* <div className='col-span-2'>
                         <label>Description</label>
                         <Input name="description" defaultValue={item?.description}
                         onChange={(e)=>handleChange(e,index)}/>
-                    </div>
+                    </div> */}
                 </div>
                 </div>
             ))}
