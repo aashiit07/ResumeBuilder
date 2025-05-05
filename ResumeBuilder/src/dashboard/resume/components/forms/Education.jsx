@@ -129,13 +129,13 @@ useEffect(()=>{
                     </div>
 
                     <div>
-                        <label>Degree</label>
+                        <label>Degree / Class</label>
                         <Input name="degree"  defaultValue={item?.degree}
                          onChange={(e)=>handleChange(e,index)}/>
                     </div>
 
                     <div>
-                        <label>Major</label>
+                        <label>Major / Board Type</label>
                         <Input name="major"  defaultValue={item?.major}
                         onChange={(e)=>handleChange(e,index)}/>
                     </div>
