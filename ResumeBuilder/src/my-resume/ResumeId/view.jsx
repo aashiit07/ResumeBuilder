@@ -5,6 +5,8 @@ import ResumePreview from '@/dashboard/resume/components/ResumePreview'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import GlobalApi from "../../../service/GlobalApi";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 function ViewResume() {
   const [resumeInfo, setResumeInfo] = useState();
@@ -21,9 +23,34 @@ function ViewResume() {
     })
   }
 
-  const HandleDownload = () => {
-    window.print();
-  }
+  const HandleDownload = async () => {
+    const element = document.getElementById('print-area');
+  
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      scrollX: 0,
+      scrollY: 0,
+      windowWidth: element.scrollWidth,
+      windowHeight: element.scrollHeight,
+      useCORS: true,
+    });
+  
+    const pdf = new jsPDF({
+      unit: 'mm',
+      format: [canvas.width * 0.264583, canvas.height * 0.264583], // Convert px to mm
+    });
+  
+    pdf.addImage(
+      canvas.toDataURL('image/png'),
+      'PNG',
+      0, // x
+      0, // y
+      pdf.internal.pageSize.getWidth(),
+      pdf.internal.pageSize.getHeight()
+    );
+  
+    pdf.save('resume.pdf');
+  };
 
   const handleShare = () => {
     if (navigator.share) {
@@ -76,9 +103,12 @@ function ViewResume() {
       </div>
       
       <div className='mb-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto'>
-        <div id="print-area" className='bg-white rounded-lg shadow-lg overflow-hidden'>
-          <ResumePreview />
-        </div>
+      <div 
+  id="print-area" 
+  className="w-full max-w-2xl p-4 mx-auto bg-white print:p-0 print:m-0 print:shadow-none print:border-none"
+>
+  <ResumePreview />
+</div>
         
         
       </div>

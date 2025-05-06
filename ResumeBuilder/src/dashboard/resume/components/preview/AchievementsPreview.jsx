@@ -8,7 +8,7 @@ function AchievementPreview() {
   return (
     <div className="mt-2">
       <h2
-        className="font-bold text-sm mb-1"
+        className="font-bold text-sm mb-1 mt-2"
         style={{
           color: themeColor,
           letterSpacing: "0.5px",
