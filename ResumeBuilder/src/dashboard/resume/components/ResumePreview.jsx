@@ -20,6 +20,8 @@ function ResumePreview(){
            {resumeInfo?.experience?.length>0&&  <ExperiencePreview resumeInfo={resumeInfo}/>}
            {resumeInfo?.skills?.length>0&&     <SkillsPreview resumeInfo={resumeInfo}/>}
            {resumeInfo?.certificates?.length>0&&     <CertificatePreview resumeInfo={resumeInfo}/>}
+           {resumeInfo?.achievements?.length>0&&     <AchievementPreview resumeInfo={resumeInfo}/>}
+           
         </div>
         </div>
     )
