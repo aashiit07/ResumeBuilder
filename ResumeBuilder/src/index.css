@@ -3,25 +3,18 @@
   @tailwind utilities;
 
 
-  @media print{
-    #no-print{
-      display: none;
+  @media print {
+    body, html, #print-area {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
     }
-
-    #print-area{
-      display: block;
+  
+    #print-area {
+      box-shadow: none !important;
+      border: none !important;
+      overflow: hidden !important;
     }
-
-    body{
-      margin: 0;
-      padding: 0;
-      box-shadow: none;
-    }
-  }
-
-  @page{
-    size: auto;
-    margin: 0mm;
   }
 
   
